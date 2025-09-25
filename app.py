@@ -18,7 +18,9 @@ def conn_db():
     
     return conn, cur
 
-
+@app.route("/")
+def index():
+    return ren("list.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
