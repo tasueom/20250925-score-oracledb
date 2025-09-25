@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+성적 입력
+{% endblock %}
+
+{% block content %}
+<h2>성적 입력</h2>
+<form method="post" action="{{url_for('insert_score')}}">
+    <label>이름<input type="text" name="sname"></label><br>
+    <label>국어<input type="text" name="kor"></label><br>
+    <label>영어<input type="text" name="eng"></label><br>
+    <label>수학<input type="text" name="mat"></label><br>
+    <button type="submit">입력</button>
+</form>
+{% endblock %}
