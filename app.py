@@ -5,6 +5,8 @@ oracledb.init_oracle_client(
     lib_dir=r"C:\oraclexe\instantclient-basic-windows.x64-23.9.0.25.07\instantclient_23_9"
 )
 
+app = Flask(__name__)
+
 def conn_db():
     conn = oracledb.connect(
     user="hr",
@@ -15,3 +17,8 @@ def conn_db():
     cur = conn.cursor()
     
     return conn, cur
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
