@@ -20,7 +20,12 @@ def conn_db():
 
 @app.route("/")
 def index():
-    return ren("list.html")
+    conn, cur = conn_db()
+    cur.execute("select * from students")
+    rows = cur.fetchall()
+    conn.close()
+    
+    return ren("list.html", rows=rows)
 
 @app.route("/insert_score", methods=['GET','POST'])
 def insert_score():
