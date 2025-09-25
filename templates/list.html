@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+성적 목록
+{% endblock %}
+
+{% block content %}
+<h2>성적 목록</h2>
+<a href="{{url_for('insert_score')}}">성적 입력하기</a>
+    <table>
+        <tr>
+            <th>학번</th>
+            <th>이름</th>
+            <th>국어</th>
+            <th>영어</th>
+            <th>수학</th>
+            <th>총점</th>
+            <th>평균</th>
+            <th>학점</th>
+            <th>관리</th>
+        </tr>
+        {% for row in rows %}
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[4]}}</td>
+            <td>{{row[5]}}</td>
+            <td>{{row[6]}}</td>
+            <td>{{row[7]}}</td>
+            <td></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
