@@ -18,6 +18,30 @@ def conn_db():
     
     return conn, cur
 
+def init_db():
+    conn, cur = conn_db()
+    try:
+        cur.execute("""
+                    CREATE TABLE students (
+                        sno NUMBER PRIMARY KEY,
+                        sname VARCHAR2(50) NOT NULL,
+                        kor NUMBER(3) NOT NULL,
+                        eng NUMBER(3) NOT NULL,
+                        mat NUMBER(3) NOT NULL,
+                        tot NUMBER(3),
+                        avg NUMBER(5,2),
+                        grade CHAR(1)
+                    );
+                    """)
+        cur.execute("""
+                    CREATE SEQUENCE student_seq
+                    START WITH 1
+                    INCREMENT BY 1
+                    NOCACHE;
+                    """)
+    except:
+        pass
+
 @app.route("/")
 def index():
     conn, cur = conn_db()
@@ -109,4 +133,5 @@ def calculate(kor, eng, mat):
     return tot, avg, grade
 
 if __name__ == "__main__":
+    init_db()
     app.run(debug=True)
