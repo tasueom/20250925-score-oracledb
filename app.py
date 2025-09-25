@@ -47,6 +47,40 @@ def insert_score():
         return redirect(url_for("index"))
     return ren("insert_score.html")
 
+@app.route("/update_score/<int:sno>", methods=['GET','POST'])
+def update_score(sno):
+    if request.method=="POST":
+        sname = request.form["sname"]
+        kor = int(request.form["kor"])
+        eng = int(request.form["eng"])
+        mat = int(request.form["mat"])
+        tot, avg, grade = calculate(kor, eng, mat)
+        
+        conn, cur = conn_db()
+        cur.execute("""
+                    update students set
+                    sname = :1,
+                    kor = :2,
+                    eng = :3,
+                    mat = :4,
+                    tot = :5,
+                    avg = :6,
+                    grade = :7
+                    where sno = :8
+                    """,(sname, kor, eng, mat, tot, avg, grade, sno))
+        conn.commit()
+        conn.close()
+        
+        return redirect(url_for("index"))
+    conn, cur = conn_db()
+    
+    cur.execute("select * from students where sno = :1",(sno,))
+    score = cur.fetchone()
+    
+    conn.close()
+    
+    return ren("update_score.html", score=score)
+
 def calculate(kor, eng, mat):
     tot = kor+eng+mat
     avg = round(tot/3,2)

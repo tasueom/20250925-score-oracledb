@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+성적 수정
+{% endblock %}
+
+{% block content %}
+<h2>성적 수정</h2>
+<form method="post" action="{{url_for('update_score',sno=score[0])}}">
+    <label>이름<input type="text" name="sname" value="{{score[1]}}"></label><br>
+    <label>국어<input type="text" name="kor" value="{{score[2]}}"></label><br>
+    <label>영어<input type="text" name="eng" value="{{score[3]}}"></label><br>
+    <label>수학<input type="text" name="mat" value="{{score[4]}}"></label><br>
+    <label>총점<input type="text" name="tot" value="{{score[5]}}" readonly></label><br>
+    <label>평균<input type="text" name="avg" value="{{score[6]}}" readonly></label><br>
+    <label>학점<input type="text" name="grade" value="{{score[7]}}" readonly></label><br>
+    <button type="submit">수정</button>
+</form>
+{% endblock %}

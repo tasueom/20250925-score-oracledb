@@ -29,7 +29,9 @@
             <td>{{row[5]}}</td>
             <td>{{row[6]}}</td>
             <td>{{row[7]}}</td>
-            <td></td>
+            <td>
+                <a href="{{url_for('update_score', sno=row[0])}}">수정</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
