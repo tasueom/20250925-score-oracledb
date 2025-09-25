@@ -22,5 +22,42 @@ def conn_db():
 def index():
     return ren("list.html")
 
+@app.route("/insert_score", methods=['GET','POST'])
+def insert_score():
+    if request.method=="POST":
+        sname = request.form["sname"]
+        kor = int(request.form["kor"])
+        eng = int(request.form["eng"])
+        mat = int(request.form["mat"])
+        tot, avg, grade = calculate(kor, eng, mat)
+        
+        conn, cur = conn_db()
+        cur.execute("""
+                    insert into students(sno, sname, kor, eng, mat, tot, avg, grade) 
+                    values (student_seq.nextval, :1, :2, :3, :4, :5, :6, :7)
+                    """,(sname, kor, eng, mat, tot, avg, grade))
+        conn.commit()
+        conn.close()
+        
+        return redirect(url_for("index"))
+    return ren("insert_score.html")
+
+def calculate(kor, eng, mat):
+    tot = kor+eng+mat
+    avg = round(tot/3,2)
+    match int(avg//10):
+        case 19|9:
+            grade = "A"
+        case 8:
+            grade = "B"
+        case 7:
+            grade = "C"
+        case 6:
+            grade = "D"
+        case _:
+            grade = "F"
+            
+    return tot, avg, grade
+
 if __name__ == "__main__":
     app.run(debug=True)
