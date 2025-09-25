@@ -31,6 +31,7 @@
             <td>{{row[7]}}</td>
             <td>
                 <a href="{{url_for('update_score', sno=row[0])}}">수정</a>
+                <a href="{{url_for('delete_score', sno=row[0])}}" onclick="return confirm('삭제하시겠습니까?')">삭제</a>
             </td>
         </tr>
         {% endfor %}

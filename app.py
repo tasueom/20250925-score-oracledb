@@ -81,6 +81,16 @@ def update_score(sno):
     
     return ren("update_score.html", score=score)
 
+@app.route("/delete_score/<int:sno>")
+def delete_score(sno):
+    conn, cur = conn_db()
+    cur. execute("delete from students where sno=:1",(sno,))
+    
+    conn.commit()
+    conn.close()
+    
+    return redirect(url_for("index"))
+
 def calculate(kor, eng, mat):
     tot = kor+eng+mat
     avg = round(tot/3,2)
